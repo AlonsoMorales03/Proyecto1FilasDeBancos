@@ -33,7 +33,7 @@ public class ColaConPrioridad {
         };
     }
     //Busca y devuelve el siguiente cliente cuya prioridad no sea igual al carácter
-
+    //Procede a eliminarlo una vez encontrado
     public Cliente siguienteClienteExcepto(char letra) {
         for (Cliente c : fila) {
             if (c.getPrioridad() != letra) {

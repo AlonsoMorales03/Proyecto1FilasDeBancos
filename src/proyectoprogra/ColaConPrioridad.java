@@ -32,6 +32,7 @@ public class ColaConPrioridad {
             default -> 6;
         };
     }
+    //Busca y devuelve el siguiente cliente cuya prioridad no sea igual al carácter
 
     public Cliente siguienteClienteExcepto(char letra) {
         for (Cliente c : fila) {

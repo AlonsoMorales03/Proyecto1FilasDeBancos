@@ -24,21 +24,26 @@ public class BCR {
             cajas.add(new Cajero(i, 'X')); // 'X' atiende todas letras excepto 'E'
         }
     }
-
+    
     public void registrarCliente() {
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
         if (nombre == null || nombre.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nombre inválido.");
             return;
         }
+         // Validación: solo letras y espacios
+    if (!nombre.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+")) {
+        JOptionPane.showMessageDialog(null, "El nombre solo se puede componer de letras, intenta de nuevo gracias.");
+        return;
+        }
         String[] opciones = {
-            "Adulto Mayor (A)",
-            "Mujer embarazada / Niño en brazos (B)",
-            "Discapacidad (C)",
+            "Adulto mayor (A)",
+            "Mujer embarazada ó Niño en brazos (B)",
+            "Discapacitado (C)",
             "Varios tramites (D)",
             "Plataforma (E)",
-            "Otro (Mujer) (F)",
-            "Otro (Hombre) (G)"
+            "Mujer (F)",
+            "Hombre (G)"
         };
         int tipo = JOptionPane.showOptionDialog(null, "Tipo de cliente:", "Categoria",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
@@ -58,9 +63,9 @@ public class BCR {
         int tramite = new Random().nextInt(111) + 10;  // 10 a 120 minutos
         int tolerancia = new Random().nextInt(146) + 5; // 5 a 150 minutos
 
-        Cliente cliente = new Cliente(nombre, consecutivo++, letra, tramite, tolerancia);
-        cola.agregarCliente(cliente);
-        JOptionPane.showMessageDialog(null, "Tiquete generado: " + cliente);
+        Cliente nuevo = new Cliente(nombre, consecutivo++, letra, tramite, tolerancia);
+        cola.agregarCliente(nuevo);
+        JOptionPane.showMessageDialog(null, "Tiquete generado: " + nuevo);
     }
 
     public void simularPasoTiempo() {
@@ -70,7 +75,7 @@ public class BCR {
         }
         cola.eliminarClientesPorTolerancia();
 
-        // Atender clientes en cajas normales (excepto 'E')
+        // Atender clientes en cajas normales excepto E
         for (Cajero c : cajas) {
             Cliente siguiente = cola.siguienteClienteExcepto('E');
             if (siguiente != null) {
@@ -78,7 +83,7 @@ public class BCR {
             }
         }
 
-        // Atender clientes de Plataforma (letra 'E')
+        // Atender clientes de Plataforma letra E
         Cliente clientePlataforma = cola.siguienteClienteSolo('E');
         if (clientePlataforma != null) {
             cajaPlataforma.atenderCliente(clientePlataforma);

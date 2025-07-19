@@ -14,7 +14,7 @@ public class Cliente {
     private int toleranciaCliente;
     private int tiempoEspera;
     //Metodo Constructor de la clase
-    public Cliente(String nombre, int consecutivo, char prioridad, int tiempoTramite, int tolerancia, int tiempoEspera) {
+    public Cliente(String nombre, int consecutivo, char prioridad, int tiempoTramite, int tolerancia) {
         this.nombre = nombre;
         this.consecutivo = consecutivo;
         this.prioridad = prioridad;

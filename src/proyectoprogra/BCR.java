@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -14,38 +15,48 @@ import javax.swing.JOptionPane;
  */
 //Esta sera la clase banco a la que nombramos BRC
 public class BCR {
-    private ColaConPrioridad cola = new ColaConPrioridad();
+    private ColaPrioridad cola = new ColaPrioridad();
     private List<Cajero> cajas = new ArrayList<>();
     private Cajero cajaPlataforma = new Cajero(99, 'E');
     private int consecutivo = 1;
 
     public BCR() {
-        for (int i = 1; i <= 5; i++) {
+        // Configuración visual de JOptionPane
+    UIManager.put("OptionPane.background", new java.awt.Color(0, 0, 0));
+    UIManager.put("Panel.background", new java.awt.Color(0, 0, 0)); // Fondo del área interna
+    UIManager.put("OptionPane.messageForeground", new java.awt.Color(255, 192, 192)); // Color del texto
+    UIManager.put("Button.background", new java.awt.Color(255, 192, 203)); // Color del botón
+        
+    for (int i = 1; i <= 5; i++) {
             cajas.add(new Cajero(i, 'X')); // 'X' atiende todas letras excepto 'E'
         }
     }
     
+    
+
     public void registrarCliente() {
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
-        if (nombre == null || nombre.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nombre inválido.");
-            return;
-        }
-         // Validación: solo letras y espacios
-    if (!nombre.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+")) {
-        JOptionPane.showMessageDialog(null, "El nombre solo se puede componer de letras, intenta de nuevo gracias.");
+        String nombre = JOptionPane.showInputDialog("Ingrese el Nombre del cliente:");
+    if (nombre == null || nombre.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Nombre invalido.");
         return;
-        }
+    }
+
+    // Validación: solo letras y espacios
+    if (!nombre.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+")) {
+        JOptionPane.showMessageDialog(null, "El nombre solo se puede componer de letras. Intenta de nuevo, gracias.");
+        return;
+    }
+        
         String[] opciones = {
-            "Adulto mayor (A)",
-            "Mujer embarazada ó Niño en brazos (B)",
-            "Discapacitado (C)",
-            "Varios tramites (D)",
+            "Adulto Mayor (A)",
+            "Mujer embarazada / Niño en brazos (B)",
+            "Discapacidad (C)",
+            "Varios trámites (D)",
             "Plataforma (E)",
-            "Mujer (F)",
-            "Hombre (G)"
+            "Otro (Mujer) (F)",
+            "Otro (Hombre) (G)"
         };
-        int tipo = JOptionPane.showOptionDialog(null, "Tipo de cliente:", "Categoria",
+        int tipo = JOptionPane.showOptionDialog(null, "Tipo de cliente:", "Categoría",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
         if (tipo == -1) return; // Cancelar
@@ -75,7 +86,7 @@ public class BCR {
         }
         cola.eliminarClientesPorTolerancia();
 
-        // Atender clientes en cajas normales excepto E
+        // Atender clientes en cajas normales (excepto 'E')
         for (Cajero c : cajas) {
             Cliente siguiente = cola.siguienteClienteExcepto('E');
             if (siguiente != null) {
@@ -83,7 +94,7 @@ public class BCR {
             }
         }
 
-        // Atender clientes de Plataforma letra E
+        // Atender clientes de Plataforma (letra 'E')
         Cliente clientePlataforma = cola.siguienteClienteSolo('E');
         if (clientePlataforma != null) {
             cajaPlataforma.atenderCliente(clientePlataforma);

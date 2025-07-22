@@ -4,6 +4,8 @@
  */
 package proyectoprogra;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,13 +20,32 @@ public class ProyectoProgra {
     public static void main(String[] args) {
         
         //System.out.println("Creacion de repo y conexion a IDE");
+        // Cargar la imagen (usa una ruta correcta relativa al proyecto)
+        ImageIcon icono = new ImageIcon("src/Imagenes/BCR.png");
+        
+        // Escalar a tamaño pequeño tipo logo (32x32 píxeles)
+        Image imagenEscalada = icono.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        ImageIcon logoPequeno = new ImageIcon(imagenEscalada);
+        
+        // Crear instancia del sistema bancario
         BCR banco = new BCR();
+
+        // Opciones del menú
         String[] opciones = {"Registrar Cliente", "Simular Atención", "Ver Reportes", "Salir"};
         int opcion;
 
         do {
-            opcion = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Banco con Colas de Prioridad",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
+            // Mostrar el menú con logo personalizado
+            opcion = JOptionPane.showOptionDialog(
+                null,
+                "Seleccione una opción",
+                "Banco con Colas de Prioridad",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                logoPequeno,
+                opciones,
+                opciones[0]
+            );
 
             switch (opcion) {
                 case 0 -> banco.registrarCliente();
@@ -33,6 +54,7 @@ public class ProyectoProgra {
             }
         } while (opcion != 3);
     }
+        
     }
     
 

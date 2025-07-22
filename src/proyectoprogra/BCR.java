@@ -15,6 +15,7 @@ import javax.swing.UIManager;
  */
 //Esta sera la clase banco a la que nombramos BRC
 public class BCR {
+    //Atributos y Arreglos de la clase
     private ColaPrioridad cola = new ColaPrioridad();
     private List<Cajero> cajas = new ArrayList<>();
     private Cajero cajaPlataforma = new Cajero(99, 'E');
@@ -33,7 +34,7 @@ public class BCR {
     }
     
     
-
+    //Metodos de la clase
     public void registrarCliente() {
         String nombre = JOptionPane.showInputDialog("Ingrese el Nombre del cliente:");
     if (nombre == null || nombre.trim().isEmpty()) {
@@ -53,8 +54,8 @@ public class BCR {
             "Discapacidad (C)",
             "Varios trámites (D)",
             "Plataforma (E)",
-            "Otro (Mujer) (F)",
-            "Otro (Hombre) (G)"
+            " (Mujer) (F)",
+            " (Hombre) (G)"
         };
         int tipo = JOptionPane.showOptionDialog(null, "Tipo de cliente:", "Categoría",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);

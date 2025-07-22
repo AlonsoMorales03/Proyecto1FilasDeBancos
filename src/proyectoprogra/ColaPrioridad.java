@@ -15,8 +15,9 @@ import java.util.List;
     //Comprobar si el error esta arreglado 
     //Si se arreglo compañero xd
 public class ColaPrioridad {
+    //Instancia de el arreglo fila
     private List<Cliente> fila = new ArrayList<>();
-
+    //Metodos 
     public void agregarCliente(Cliente c) {
         fila.add(c);
         fila.sort(Comparator.comparingInt(a -> prioridadValor(a.getPrioridad())));
@@ -56,7 +57,7 @@ public class ColaPrioridad {
     public void eliminarClientesPorTolerancia() {
         fila.removeIf(Cliente::seVaSinAtender);
     }
-
+    // Y un getter 
     public List<Cliente> getFila() {
         return fila;
     }

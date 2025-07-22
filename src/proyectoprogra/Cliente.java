@@ -7,6 +7,7 @@ package proyectoprogra;
  */
 
     public class Cliente {
+        //Atributos de la clase 
         private String nombre;
         private int consecutivo;
         private char prioridad;

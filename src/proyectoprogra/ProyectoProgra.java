@@ -30,7 +30,7 @@ public class ProyectoProgra {
         // Crear instancia del sistema bancario
         BCR banco = new BCR();
 
-        // Opciones del menú
+        // Opciones para el menú
         String[] opciones = {"Registrar Cliente", "Simular Atención", "Ver Reportes", "Salir"};
         int opcion;
 
